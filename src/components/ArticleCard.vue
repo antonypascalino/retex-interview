@@ -8,7 +8,8 @@ defineProps({
   title: String,
   description: String,
   author: String,
-  date: String
+  date: String,
+  media: String //Temporary solution
 });
 
 const authorImages = {
@@ -26,13 +27,16 @@ const getAuthorImage = (authorName) => {
 
 
 <template>
-    <div class="card" :style="{ backgroundImage: `url(${image})` }">
-  <div class="background-black">
+  <div class="card" :style="{ backgroundImage: `url(${image})` }">
+    <div class="background-black">
       <TopicLabel>
         <template #topic>
           {{ topic }}
         </template>
       </TopicLabel>
+      <div class="media">
+        <img :src=media class="podcast"/>
+      </div>
       <h1 class="title">{{ title }}</h1>
       <div class="card-footer">
         <div class="author-picture">
@@ -68,7 +72,7 @@ const getAuthorImage = (authorName) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: red no-repeat center center/cover;
+  background: no-repeat center center/cover;
   width: 100%;
   height: 100vh;
 }
@@ -109,4 +113,16 @@ p, h1 {
   cursor: pointer;
   width: fit-content;
 }
+
+.media {
+  display: flex;
+  width: 500px;
+}
+
+.podcast {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 </style>

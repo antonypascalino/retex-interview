@@ -7,11 +7,11 @@ const props = defineProps({
 </script>
 
 <template>
-  <Button :style="{ background: backgroundColor }">
+  <button :style="{ background: backgroundColor }">
     <h1>
       <slot name="topic"></slot>
     </h1>
-  </Button>
+  </button>
 </template>
 
 <style scoped>
@@ -24,6 +24,12 @@ button {
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: -2px 2px 0 0 black;
+}
+
+@media (max-width: 1050px) {
+  button {
+    background: white;
+  }
 }
 
 </style>

@@ -71,6 +71,7 @@ import TopicSelector from "@/components/TopicSelector.vue";
 .topics {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
   list-style: none;
 }
 

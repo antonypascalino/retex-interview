@@ -27,8 +27,8 @@ button {
 }
 
 @media (max-width: 1050px) {
-  button {
-    background: white;
+  h1 {
+    font-size: 1.2rem;
   }
 }
 

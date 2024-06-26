@@ -3,6 +3,16 @@
 import IconLogin from "@/components/icons/IconLogin.vue";
 import SwitchButton from "@/components/SwitchButton.vue";
 import IconSearch from "@/components/icons/IconSearch.vue";
+import Menu from "@/components/Menu.vue";
+import { ref } from 'vue';
+import IconX from "@/components/icons/IconX.vue";
+import IconBurger from "@/components/icons/IconBurger.vue";
+
+const isMenuOpen = ref(false);
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
 </script>
 
 <template>
@@ -20,14 +30,18 @@ import IconSearch from "@/components/icons/IconSearch.vue";
   </div>
   <div class="option-bar">
     <button @click="toggleMenu" class="option-button menu-button">
-      <span v-if="!isMenuOpen">☰</span>
-      <span v-else>✖</span>
+      <span v-if="!isMenuOpen">
+        <IconBurger/>
+      </span>
+      <span v-else>
+        <IconX/>
+      </span>
     </button>
     <button class="option-button search-button">
       <IconSearch/>
     </button>
   </div>
-  <div class="menu-bar">
+  <div v-if=!isMenuOpen class="menu-bar">
     <nav class="main-menu" :class="{ open: isMenuOpen }">
       <ul class="menu-list">
         <li><a href="#">Tutti i temi</a></li>
@@ -42,6 +56,7 @@ import IconSearch from "@/components/icons/IconSearch.vue";
     </nav>
     <SwitchButton/>
   </div>
+  <Menu v-else/>
 </template>
 
 <style scoped>
@@ -171,6 +186,10 @@ li:hover::after {
 
   .option-button {
     width: 52px;
+  }
+
+  Menu {
+    display: none;
   }
 }
 

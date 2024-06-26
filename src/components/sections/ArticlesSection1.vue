@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import ArticleCard from '../components/ArticleCard.vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+import BackgroundCard from "@/components/BackgroundCard.vue";
+import NoBackgroundCard from "@/components/NoBackgroundCard.vue";
 
 const articles = ref([
   {
@@ -9,7 +10,9 @@ const articles = ref([
     title: 'Roccella Jonica, la Lampedusa che l\'Italia ignora',
     author: 'Alessandro Puglia',
     date: '29 Giugno 2022',
-    media: ''
+    media: '',
+    hasBackground: true,
+    showMedia: false
   },
   {
     image: 'src/assets/Ghiacciai.png',
@@ -17,7 +20,9 @@ const articles = ref([
     title: 'Il collasso dei ghiacciai negli scatti del fotografo ambientale Fabiano Ventura',
     author: 'Ugo Lombi',
     date: '12 Luglio 2022',
-    media: 'src/assets/Ghiacciai.png'
+    media: 'src/assets/Ghiacciai.png',
+    hasBackground: false,
+    showMedia: false
   },
   {
     image: 'src/assets/Startup.jpeg',
@@ -26,6 +31,8 @@ const articles = ref([
     author: "Diletta Grella",
     date: "14 Luglio 2022",
     media: 'src/assets/podcast.png',
+    hasBackground: false,
+    showMedia: true
   },
   {
     image: 'src/assets/Ucraina.png',
@@ -33,9 +40,27 @@ const articles = ref([
     title: "Nelle città italiane tutti in piazza per e con Kiev",
     author: "Anna Spena",
     date: "14 Luglio 2022",
-    media: ''
+    media: '',
+    hasBackground: false,
+    showMedia: false
   }
 ]);
+
+const screenWidth = ref(window.innerWidth);
+const isMobile = ref(screenWidth.value <= 1050);
+
+const handleResize = () => {
+  screenWidth.value = window.innerWidth;
+  isMobile.value = screenWidth.value <= 1050;
+};
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+});
 
 const getClass = (index) => {
   switch (index) {
@@ -51,35 +76,34 @@ const getClass = (index) => {
       return '';
   }
 };
-
 </script>
 
 <template>
-    <div class="grid-container">
-      <ArticleCard
-          v-for="(article, index) in articles"
-          :key="index"
-          :class="getClass(index)"
-          :media="article.media"
-          :image="article.image"
-          :topic="article.topic"
-          :title="article.title"
-          :description="article.description"
-          :author="article.author"
-          :date="article.date"
-      />
-    </div>
+  <div class="grid-container">
+    <component
+        v-for="(article, index) in articles"
+        :is="isMobile ? NoBackgroundCard : BackgroundCard"
+        :key="index"
+        :class="getClass(index)"
+        :media="article.media"
+        :image="article.image"
+        :topic="article.topic"
+        :title="article.title"
+        :author="article.author"
+        :date="article.date"
+        :hasBackground="article.hasBackground"
+        :showMedia="article.showMedia"
+    />
+  </div>
 </template>
 
 <style scoped>
-
 .grid-container {
   display: grid;
   grid-template-areas:
     "main main"
     "secondary tertiary"
     "secondary quaternary";
-  grid-template-columns: 2fr 1fr;
   gap: 1.5px;
 }
 
@@ -115,23 +139,13 @@ const getClass = (index) => {
   }
 
   .article-main {
-    height: 500px;
+    height: 400px
   }
 
-  .article-secondary {
-    height: 500px;
-  }
-
-  .article-tertiary {
-    height: 500px;
-  }
-
+  .article-secondary,
+  .article-tertiary,
   .article-quaternary {
-    height: 500px;
+    height: auto
   }
 }
-
-
-
-
 </style>

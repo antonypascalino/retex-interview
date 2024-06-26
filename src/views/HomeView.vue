@@ -1,8 +1,14 @@
 <script setup>
-import Header from "@/components/Header.vue";
-import TopicSection from "@/components/TopicSection.vue";
+import Header from "@/components/sections/Header.vue";
+import TopicSection from "@/components/sections/TopicSection.vue";
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import ArticlesSection1 from "@/components/ArticlesSection1.vue";
+import ArticlesSection1 from "@/components/sections/ArticlesSection1.vue";
+import SupportBanner from "@/components/sections/SupportBanner.vue";
+import ArticlesSection2 from "@/components/sections/ArticlesSection2.vue";
+import QuoteBanner from "@/components/sections/QuoteBanner.vue";
+import BlogBanner from "@/components/sections/BlogBanner.vue";
+import ArticlesSection3 from "@/components/sections/ArticlesSection3.vue";
+import Footer from "@/components/sections/Footer.vue";
 
 const header = ref(null);
 const content = ref(null);
@@ -30,7 +36,13 @@ onBeforeUnmount(() => {
     </header>
   <main ref="content" class="content">
     <TopicSection />
-    <ArticlesSection1 />
+    <ArticlesSection1/>
+    <SupportBanner />
+    <ArticlesSection2/>
+    <QuoteBanner/>
+    <BlogBanner/>
+    <ArticlesSection3/>
+    <Footer/>
   </main>
 </template>
 
@@ -46,5 +58,6 @@ onBeforeUnmount(() => {
 TopicSection {
   position: relative;
 }
+
 
 </style>

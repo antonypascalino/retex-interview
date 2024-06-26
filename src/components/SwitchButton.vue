@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import IconTextMode from "@/components/icons/IconTextMode.vue";
 import IconImageMode from "@/components/icons/IconImageMode.vue";
 
-const activeButton = ref(null);
+const activeButton = ref('Pictures');
 
 const isActive = (button) => activeButton.value === button;
 
@@ -15,14 +15,14 @@ const activate = (button) => {
 <template>
   <div class="button-switch">
     <button
-        :class="{ active: isActive('button1') }"
-        @click="activate('button1')"
+        :class="{ active: isActive('Text') }"
+        @click="activate('Text')"
     >
       <IconTextMode/>
     </button>
     <button
-        :class="{ active: isActive('button2') }"
-        @click="activate('button2')"
+        :class="{ active: isActive('Pictures') }"
+        @click="activate('Pictures')"
     >
       <IconImageMode/>
     </button>
